@@ -3,13 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 const INITIAL_ORDERS = [
   {
     id: 'CM9801',
-    user: { name: 'Natali Craig', avatar: '/src/assets/Female05.png' },
+    user: { name: 'Natali Craig', avatarKey: 'Female05' },
     project: 'Landing Page',
     address: 'Meadow Lane Oakland',
     date: 'Just now',
     status: 'In Progress'
   },
-  // ... other initial orders from OrderList.jsx
 ];
 
 const initialState = {

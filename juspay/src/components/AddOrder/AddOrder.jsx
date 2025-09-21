@@ -5,7 +5,7 @@ const AddOrder = ({ onClose, onAdd, initialData, isEditing }) => {
   const [formData, setFormData] = useState(
     initialData || {
       id: '',
-      user: { name: '', avatar: '/src/assets/user.svg' },
+      user: { name: '', avatarKey: 'user' },
       project: '',
       address: '',
       date: 'Just now',
