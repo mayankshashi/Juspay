@@ -10,6 +10,15 @@ import DotsThreeVerticalIcon from '../../assets/DotsThreeOutlineVertical.svg';
 import CalendarBlankIcon from '../../assets/CalendarBlank.svg';
 import AddOrder from '../AddOrder/AddOrder';
 import DeleteConfirmation from '../DeleteConfirmation/DeleteConfirmation';
+import Female05 from '../../assets/Female05.png';
+import Female08 from '../../assets/Female08.png';
+import Female09 from '../../assets/Female09.png';
+import Female15 from '../../assets/Female15.png';
+import Male06 from '../../assets/Male06.png';
+import Male07 from '../../assets/Male07.png';
+import Male08 from '../../assets/Male08.png';
+import Male11 from '../../assets/Male11.png';
+import userSvg from '../../assets/user.svg';
 import {
   selectOrders,
   selectSelectedOrders,
@@ -24,89 +33,22 @@ import {
   setCurrentPage,
 } from '../../store/slices/orderSlice';
 
-const INITIAL_ORDERS = [
-  {
-    id: 'CM9801',
-    user: { name: 'Natali Craig', avatar: '/src/assets/Female05.png' },
-    project: 'Landing Page',
-    address: 'Meadow Lane Oakland',
-    date: 'Just now',
-    status: 'In Progress'
-  },
-  {
-    id: 'CM9802',
-    user: { name: 'Kate Morrison', avatar: '/src/assets/Female08.png' },
-    project: 'CRM Admin pages',
-    address: 'Larry San Francisco',
-    date: 'A minute ago',
-    status: 'Complete'
-  },
-  {
-    id: 'CM9803',
-    user: { name: 'Drew Cano', avatar: '/src/assets/Male06.png' },
-    project: 'Client Project',
-    address: 'Bagwell Avenue Ocala',
-    date: '1 hour ago',
-    status: 'Pending'
-  },
-  {
-    id: 'CM9804',
-    user: { name: 'Orlando Diggs', avatar: '/src/assets/Male07.png' },
-    project: 'Admin Dashboard',
-    address: 'Washburn Baton Rouge',
-    date: 'Yesterday',
-    status: 'Approved'
-  },
-  {
-    id: 'CM9805',
-    user: { name: 'Andi Lane', avatar: '/src/assets/Female09.png' },
-    project: 'App Landing Page',
-    address: 'Nest Lane Olivette',
-    date: 'Feb 2, 2023',
-    status: 'Rejected'
-  },
-  {
-    id: 'CM9806',
-    user: { name: 'Sarah Wilson', avatar: '/src/assets/Female15.png' },
-    project: 'Mobile App',
-    address: 'Main Street Boston',
-    date: 'Feb 1, 2023',
-    status: 'In Progress'
-  },
-  {
-    id: 'CM9807',
-    user: { name: 'John Smith', avatar: '/src/assets/Male08.png' },
-    project: 'Website Redesign',
-    address: 'Oak Avenue Chicago',
-    date: 'Jan 30, 2023',
-    status: 'Complete'
-  },
-  {
-    id: 'CM9808',
-    user: { name: 'Emily Davis', avatar: '/src/assets/Female05 (1).png' },
-    project: 'E-commerce Platform',
-    address: 'Pine Street Seattle',
-    date: 'Jan 28, 2023',
-    status: 'Pending'
-  },
-  {
-    id: 'CM9809',
-    user: { name: 'Michael Brown', avatar: '/src/assets/Male11.png' },
-    project: 'Analytics Dashboard',
-    address: 'Cedar Lane Miami',
-    date: 'Jan 25, 2023',
-    status: 'Approved'
-  },
-  {
-    id: 'CM9810',
-    user: { name: 'Lisa Johnson', avatar: '/src/assets/Female08.png' },
-    project: 'Portfolio Site',
-    address: 'Elm Street Denver',
-    date: 'Jan 22, 2023',
-    status: 'In Progress'
-  }
-  // ... other initial orders
-];
+const avatarMap = {
+  Female05,
+  Female08,
+  Female09,
+  Female15,
+  Male06,
+  Male07,
+  Male08,
+  Male11,
+  user: userSvg
+};
+
+const resolveAvatar = (user) => {
+  if (user.avatarKey && avatarMap[user.avatarKey]) return avatarMap[user.avatarKey];
+  return userSvg;
+};
 
 const OrderList = () => {
   const dispatch = useDispatch();
@@ -279,7 +221,7 @@ const OrderList = () => {
                 <td className="user-cell">
                   <div className="user-info">
                     <div className="user-avatar">
-                      <img src={order.user.avatar} alt={order.user.name} />
+                      <img src={resolveAvatar(order.user)} alt={order.user.name} />
                     </div>
                     <span className="user-name">{order.user.name}</span>
                   </div>
