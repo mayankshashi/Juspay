@@ -1,13 +1,19 @@
 .dashboard-container {
   display: flex;
+  /* padding-bottom: var(--12, 12px); */
   flex-direction: column;
-  gap: 4px;
+  align-items: flex-start;
+  gap: var(--4, 4px);
+  align-self: stretch;
 }
 
 .section-header {
-  font-size: 12px;
-  font-weight: 600;
-  color: #00000060;
+  color: var(--black-40, rgba(28, 28, 28, 0.40));
+  font-feature-settings: 'ss01' on, 'cv01' on, 'cv11' on;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
   padding: 4px 12px;
 }
 
@@ -15,6 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-bottom: 12px;
 }
 
 .nav-item-container {
@@ -42,12 +49,11 @@
 .active-indicator {
   position: absolute;
   left: 0;
-  top: 0;
+  top: 25;
   width: 3px;
-  height: 100%;
+  height: 50%;
   background-color: #111827;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-radius: 6px;
 }
 
 .nav-icon {
@@ -59,8 +65,8 @@
 .nav-label {
   flex: 1;
   font-size: 14px;
-  color: #374151;
-  font-weight: 500;
+  color: #000000;
+  font-weight: 400;
 }
 
 .arrow-icon {

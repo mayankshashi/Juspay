@@ -5,11 +5,12 @@ import Favorites from '../Favorites/Favorites';
 import Dashboard from '../Dashboard/Dashboard';
 import Pages from '../Pages/Pages';
 
-const Sidebar = () => {
+const Sidebar = ({ onViewChange, activeView }) => {
   const [activeItem, setActiveItem] = useState('Default');
 
   const handleItemClick = (label) => {
     setActiveItem(label);
+    onViewChange?.(label);
   };
 
   return (

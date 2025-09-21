@@ -1,0 +1,95 @@
+.ecommerce {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+}
+
+.first-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 24px;
+  width: 50%;
+  border-radius: 16px;
+}
+
+.first-row > :nth-child(2) {
+  width: 50%;
+}
+
+.second-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.second-row > :first-child {
+  width: 70%;
+}
+
+.second-row > :last-child {
+  width: 30%;
+}
+
+.third-row {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.third-row > :first-child {
+  width: 70%;
+}
+
+.third-row > :last-child {
+  width: 30%;
+}
+
+@media (max-width: 1200px) {
+  .second-row {
+    flex-direction: column;
+  }
+  
+  .second-row > :first-child,
+  .second-row > :last-child {
+    width: 100%;
+  }
+  
+  .third-row {
+    flex-direction: column;
+  }
+  
+  .third-row > :first-child,
+  .third-row > :last-child {
+    width: 100%;
+  }
+}
+
+.chart-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+@media (max-width: 1400px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

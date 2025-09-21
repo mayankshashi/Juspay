@@ -1,18 +1,28 @@
 .user-section {
-  margin-bottom: 8px;
+  display: flex;
+  padding: var(--4, 4px);
+  align-items: center;
+  align-content: center;
+  gap: 8px var(--8, 8px);
+  align-self: stretch;
+  flex-wrap: wrap;
+  border-radius: var(--8, 8px);
 }
 
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px;
+  align-content: center;
+  gap: 8px var(--8, 8px);
+  flex-wrap: wrap;
+  border-radius: var(--8, 8px);
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: var(--24, 24px);
+  height: var(--24, 24px);
+  border-radius: var(--80, 80px);
+  background: url(../../assets/user.svg) lightgray 50% / cover no-repeat;
 }
 
 .user-name {

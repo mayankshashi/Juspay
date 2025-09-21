@@ -1,10 +1,13 @@
 .sidebar {
+  display: flex;
   width: 212px;
   height: 100vh;
-  background-color: #ffffff;
-  border-right: 1px solid #e5e7eb;
-  padding: 20px 16px;
-  display: flex;
+  padding: var(--20, 20px) var(--16, 16px);
   flex-direction: column;
-  gap: 16px;
+  align-items: flex-start;
+  gap: var(--16, 16px);
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-right: 1px solid var(--black-10, rgba(28, 28, 28, 0.10));
+  overflow-y: auto;
 }

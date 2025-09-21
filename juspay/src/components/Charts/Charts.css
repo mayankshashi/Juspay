@@ -1,0 +1,78 @@
+.revenue-chart-card {
+  display: flex;
+  height: 318px;
+  width: 100%;
+  padding: var(--24, 24px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--16, 16px);
+  border-radius: var(--16, 16px);
+  background: var(--Primary-Light, #F7F9FB);
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 16px var(--16, 16px);
+  flex-wrap: wrap;
+  border-radius: var(--8, 8px);
+}
+
+.chart-title {
+  color: var(--gray-900, #101828);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0;
+}
+
+.chart-separator {
+  width: 1px;
+  height: 20px;
+  background-color: #E4E7EC;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--gray-600, #475467);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot.current {
+  background-color: #1C1C1C;
+}
+
+.legend-dot.previous {
+  background-color: #A8C5DA;
+}
+
+.chart-container {
+  height: 240px;
+  width: 100%;
+}
+
+.placeholder-chart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F9FAFB;
+  border-radius: 8px;
+  color: #475467;
+  font-size: 14px;
+}

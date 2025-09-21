@@ -1,0 +1,65 @@
+/* Projection Chart Styles */
+.projection-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-radius: 16px;
+    width: 100%;
+    height: 252px;
+    min-width: 400px;
+    padding: var(--24, 24px);
+    align-items: flex-start;
+    gap: var(--16, 16px);
+    flex: 1 0 0;
+    border-radius: var(--16, 16px);
+    background: var(--Primary-Light, #F7F9FB);
+}
+
+.projection-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.projection-title {
+  color: var(--gray-900, #101828);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0;
+}
+
+.projection-container {
+  height: 200px;
+  width: 100%;
+}
+
+/* Chart Elements */
+.projection-axis {
+  fill: #475467;
+  font-size: 12px;
+}
+
+.projection-grid {
+  stroke: #EAECF0;
+  stroke-dasharray: 0;
+}
+
+.projection-bar-main {
+  fill: #A8C5DA;
+}
+
+.projection-bar-top {
+  fill: #E5ECF6;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .projection-chart {
+    padding: 16px;
+  }
+
+  .projection-container {
+    height: 250px;
+  }
+}

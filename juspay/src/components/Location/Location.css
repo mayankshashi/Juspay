@@ -1,0 +1,150 @@
+.location-card {
+    display: flex;
+    width: 100%;
+    height: 318px;
+    padding: var(--24, 24px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--16, 16px);
+    border-radius: var(--16, 16px);
+    background: var(--Primary-Light, #F7F9FB);
+}
+
+.location-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    color: var(--black-100, #1C1C1C);
+    font-feature-settings: 'ss01' on, 'cv01' on, 'cv11' on;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0;
+}
+
+.map-container {
+  width: 100%;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F7F9FB;
+  border-radius: 8px;
+}
+
+.map-wrapper {
+  position: relative;
+  width: 154px;
+  height: 82px;
+  flex-shrink: 0;
+}
+
+.world-map {
+  min-width: 154px;
+  min-height: 82px;
+  object-fit: contain;
+}
+
+.markers-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 154px;
+  height: 82px;
+  pointer-events: none;
+}
+
+.continents {
+  opacity: 0.8;
+}
+
+.location-marker {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.location-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-self: stretch;
+}
+
+.location-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location-name {
+    color: var(--black-100, #1C1C1C);
+    font-feature-settings: 'ss01' on, 'cv01' on, 'cv11' on;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.location-revenue {
+    color: var(--black-100, #1C1C1C);
+    font-feature-settings: 'ss01' on, 'cv01' on, 'cv11' on;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 2px;
+  background-color: #E3F5FF;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 2px;
+  background-color: #A8C5DA;
+  border-radius: 1px;
+  transition: width 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .location-card {
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .location-card {
+    min-width: 250px;
+    height: auto;
+  }
+  
+  .map-container {
+    height: 100px;
+  }
+}
