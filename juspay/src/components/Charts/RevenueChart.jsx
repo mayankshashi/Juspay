@@ -1,25 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import './Charts.css';
+import { selectRevenue } from '../../store/slices/ecommerceSlice';
 
 const RevenueChart = () => {
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+  const revenue = useSelector(selectRevenue);
   
-  const data = [
-    { month: 'Jan', current: 14, previous: 10 },
-    { month: 'Feb', current: 10, previous: 19 },
-    { month: 'Mar', current: 11, previous: 16 },
-    { month: 'Apr', current: 16, previous: 12 },
-    { month: 'May', current: 20, previous: 14 },
-    { month: 'Jun', current: 21, previous: 22 }
-  ];
+  const data = revenue.monthlyData;
 
   const currentWeek = {
-    value: '$58,211'
+    value: revenue.totalRevenue
   };
 
   const previousWeek = {
-    value: '$68,768'
+    value: '$' + (parseFloat(revenue.totalRevenue.replace('$', '').replace(',', '')) * 0.9).toLocaleString()
   };
 
   return (
@@ -39,12 +34,11 @@ const RevenueChart = () => {
         </div>
       </div>
       <div className="chart-container">
-        <ResponsiveContainer width="100%" height={240}>
-          <LineChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+        <ResponsiveContainer width="100%" height={250}>
+          <LineChart data={data} margin={{ top: 40, right: 30, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis 
               dataKey="month" 
-              axisLine={false}
               tickLine={false}
               tick={{ fill: '#475467', fontSize: 12 }}
             />
@@ -53,6 +47,8 @@ const RevenueChart = () => {
               tickLine={false}
               tick={{ fill: '#475467', fontSize: 12 }}
               tickFormatter={(value) => `${value}M`}
+              domain={[0, 30]}
+              ticks={[0, 10, 20, 30]}
             />
             <Line
               type="monotone"
@@ -67,7 +63,6 @@ const RevenueChart = () => {
               dataKey="previous"
               stroke="#A8C5DA"
               strokeWidth={3}
-              strokeDasharray="5 5"
               dot={false}
             />
           </LineChart>

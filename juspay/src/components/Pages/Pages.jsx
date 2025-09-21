@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import './Pages.css';
 import userProfileIcon from '../../assets/userProfile.svg';
 import accountIcon from '../../assets/account.svg';
@@ -6,37 +7,19 @@ import corporateIcon from '../../assets/corporate.svg';
 import blogIcon from '../../assets/blog.svg';
 import socialIcon from '../../assets/social.svg';
 import rightArrowIcon from '../../assets/right-arrow.svg';
+import { selectPagesItems } from '../../store/slices/sidebarSlice';
 
 const Pages = ({ activeItem, onItemClick }) => {
   const [expandedItem, setExpandedItem] = useState(null);
+  const pagesItems = useSelector(selectPagesItems);
 
-  const pagesItems = [
-    { 
-      icon: userProfileIcon, 
-      label: 'User Profile',
-      subitems: ['Overview', 'Projects', 'Campaigns', 'Documents', 'Followers']
-    },
-    { 
-      icon: accountIcon, 
-      label: 'Account',
-      subitems: ['Settings', 'Billing', 'Notifications']
-    },
-    { 
-      icon: corporateIcon, 
-      label: 'Corporate',
-      subitems: ['About', 'Team', 'Partners']
-    },
-    { 
-      icon: blogIcon, 
-      label: 'Blog',
-      subitems: ['Posts', 'Categories', 'Tags']
-    },
-    { 
-      icon: socialIcon, 
-      label: 'Social',
-      subitems: ['Feed', 'Activity', 'Connections']
-    }
-  ];
+  const iconMap = {
+    userProfileIcon,
+    accountIcon,
+    corporateIcon,
+    blogIcon,
+    socialIcon
+  };
 
   const handleItemClick = (item) => {
     if (expandedItem === item.label) {
@@ -62,7 +45,7 @@ const Pages = ({ activeItem, onItemClick }) => {
                 alt="expand" 
                 className={`arrow-icon ${expandedItem === item.label ? 'expanded' : ''}`}
                 />
-              <img src={item.icon} alt={item.label} className="page-item-icon" />
+              <img src={iconMap[item.iconKey]} alt={item.label} className="page-item-icon" />
               <span className="page-item-label">{item.label}</span>
             </div>
           </div>

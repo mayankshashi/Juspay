@@ -42,7 +42,7 @@
 }
 
 .contact-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--hover-bg);
   border-radius: var(--8, 8px);
   cursor: pointer;
 }
@@ -60,5 +60,5 @@
 
 .contact-name {
   font-size: 14px;
-  color: #111827;
+  color: var(--black-100, #1C1C1C);
 }

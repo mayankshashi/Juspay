@@ -4,6 +4,18 @@
   gap: 24px;
   width: 100%;
   min-width: 0;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding-right: 16px;
+}
+
+.ecommerce-title {
+  padding: 24px 0 0 0;
+  color: var(--black-100, #1C1C1C);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
 }
 
 .first-row {
@@ -22,7 +34,7 @@
   border-radius: 16px;
 }
 
-.first-row > :nth-child(2) {
+.first-row> :nth-child(2) {
   width: 50%;
 }
 
@@ -33,11 +45,11 @@
   align-items: stretch;
 }
 
-.second-row > :first-child {
+.second-row> :first-child {
   width: 70%;
 }
 
-.second-row > :last-child {
+.second-row> :last-child {
   width: 30%;
 }
 
@@ -48,11 +60,11 @@
   align-items: stretch;
 }
 
-.third-row > :first-child {
+.third-row> :first-child {
   width: 70%;
 }
 
-.third-row > :last-child {
+.third-row> :last-child {
   width: 30%;
 }
 
@@ -60,24 +72,24 @@
   .second-row {
     flex-direction: column;
   }
-  
-  .second-row > :first-child,
-  .second-row > :last-child {
+
+  .second-row> :first-child,
+  .second-row> :last-child {
     width: 100%;
   }
-  
+
   .third-row {
     flex-direction: column;
   }
-  
-  .third-row > :first-child,
-  .third-row > :last-child {
+
+  .third-row> :first-child,
+  .third-row> :last-child {
     width: 100%;
   }
 }
 
 .chart-card {
-  background: #FFFFFF;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 24px;
 }

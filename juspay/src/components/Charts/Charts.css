@@ -7,20 +7,21 @@
   align-items: flex-start;
   gap: var(--16, 16px);
   border-radius: var(--16, 16px);
-  background: var(--Primary-Light, #F7F9FB);
+  background: var(--card-bg);
 }
 
 .chart-header {
   display: flex;
   align-items: center;
   align-content: center;
-  gap: 16px var(--16, 16px);
-  flex-wrap: wrap;
+  gap: var(--16, 16px);
+  flex-wrap: nowrap;
   border-radius: var(--8, 8px);
+  width: 100%;
 }
 
 .chart-title {
-  color: var(--gray-900, #101828);
+  color: var(--black-100, #1C1C1C);
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -36,6 +37,8 @@
 .chart-legend {
   display: flex;
   gap: 16px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .legend-item {
@@ -43,7 +46,7 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: var(--gray-600, #475467);
+  color: var(--black-40, rgba(28, 28, 28, 0.40));
 }
 
 .legend-dot {

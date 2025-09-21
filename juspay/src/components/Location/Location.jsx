@@ -1,14 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './Location.css';
 import WorldMap from '../../assets/Maps.svg';
+import { selectLocation } from '../../store/slices/ecommerceSlice';
 
 const Location = () => {
-  const locations = [
-    { name: 'New York', revenue: '72K', percentage: 72 },
-    { name: 'Singapore', revenue: '61K', percentage: 61 },
-    { name: 'San Francisco', revenue: '39K', percentage: 39 },
-    { name: 'Sydney', revenue: '25K', percentage: 25 }
-  ];
+  const locationData = useSelector(selectLocation);
+  const locations = locationData.topLocations.map(loc => ({
+    name: loc.city,
+    revenue: `${loc.orders}K`,
+    percentage: loc.percentage
+  }));
 
   return (
     <div className="location-card">
@@ -18,7 +20,6 @@ const Location = () => {
         <div className="map-wrapper">
           <img src={WorldMap} alt="World Map" className="world-map" />
           <svg className="markers-overlay" viewBox="0 0 154 82">
-            {/* Location markers positioned over the map */}
             <circle cx="35" cy="32" r="2" fill="#1C1C1C" className="location-marker" />
             <circle cx="50" cy="35" r="2" fill="#1C1C1C" className="location-marker" />
             <circle cx="115" cy="25" r="2" fill="#1C1C1C" className="location-marker" />

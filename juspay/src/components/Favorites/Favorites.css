@@ -37,11 +37,11 @@
 
 }
 .section-header:hover {
-  color: var(--black-40, rgba(28, 28, 28, 0.40));
+  color: var(--text-secondary);
 }
 
 .section-header.active {
-  color: var(--black-40, rgba(28, 28, 28, 0.40));
+  color: var(--text-secondary);
 }
 
 .nav-items {
@@ -67,13 +67,13 @@
 }
 
 .nav-item-container:hover {
-  background-color: #f3f4f6;
+  background-color: var(--hover-bg);
 }
 
 .bullet-point {
   width: 6px;
   height: 6px;
-  background-color: #9CA3AF;
+  background-color: var(--black-60, rgba(28, 28, 28, 0.60));
   border-radius: 50%;
 }
 
@@ -85,6 +85,6 @@
 
 .nav-label {
   font-size: 14px;
-  color: #000000;
+  color: var(--black-100, #1C1C1C);
   font-weight: 400;
 }

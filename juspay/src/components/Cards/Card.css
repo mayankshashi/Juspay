@@ -10,6 +10,17 @@
   background: var(--Primary-Blue, #E3F5FF);
 }
 
+/* Keep text/icon colors fixed for specific stat cards across themes */
+.card.fixed-colors .card-title,
+.card.fixed-colors .card-value,
+.card.fixed-colors .card-trend {
+  color: #1a1d1f; /* dark text suited for light pastel backgrounds */
+}
+
+.card.fixed-colors .trend-icon {
+  filter: none; /* prevent theme icon inversion */
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -57,10 +68,4 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
-}
-
-.card-trend.positive {
-}
-
-.card-trend.negative {
 }

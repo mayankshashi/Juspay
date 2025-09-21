@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme, selectTheme } from '../../store/slices/ecommerceSlice';
 import './Navbar.css';
 import SearchIcon from '../../assets/Search.svg';
 import SunIcon from '../../assets/Sun.svg';
@@ -7,7 +9,9 @@ import BellIcon from '../../assets/Bell.svg';
 import StarIcon from '../../assets/Star.svg';
 import SidebarIcon from '../../assets/Sidebar.svg';
 
-const Navbar = () => {
+const Navbar = ({ onToggleRightSidebar, activeView }) => {
+  const dispatch = useDispatch();
+  const theme = useSelector(selectTheme);
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -20,7 +24,7 @@ const Navbar = () => {
         <div className="nav-breadcrumb">
           <span className="dashboards">Dashboards</span>
           <span className="separator">/</span>
-          <span className="default">Default</span>
+          <span className="default">{activeView || 'Default'}</span>
         </div>
       </div>
 
@@ -36,8 +40,16 @@ const Navbar = () => {
         ⌘ /
       </span>
         </div>
-        <div className="nav-item">
-          <img src={SunIcon} alt="Theme Toggle" className="nav-icon" />
+        <div className="nav-item" onClick={() => {
+          console.log('Current theme:', theme);
+          dispatch(toggleTheme());
+        }}>
+          <img 
+            src={SunIcon} 
+            alt="Theme Toggle" 
+            className={`nav-icon ${theme === 'dark' ? 'rotate-icon' : ''}`} 
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          />
         </div>
         <div className="nav-item">
           <img src={ClockIcon} alt="History" className="nav-icon" />
@@ -45,8 +57,8 @@ const Navbar = () => {
         <div className="nav-item">
           <img src={BellIcon} alt="Notifications" className="nav-icon" />
         </div>
-        <div className="nav-item">
-          <img src={SidebarIcon} alt="Notifications" className="nav-icon" />
+        <div className="nav-item" onClick={onToggleRightSidebar}>
+          <img src={SidebarIcon} alt="Toggle Right Sidebar" className="nav-icon" />
         </div>
       </div>
     </nav>

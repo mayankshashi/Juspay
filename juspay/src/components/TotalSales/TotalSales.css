@@ -7,7 +7,7 @@
   align-items: center;
   gap: var(--16, 16px);
   border-radius: var(--16, 16px);
-  background: var(--Primary-Light, #F7F9FB);
+  background: var(--card-bg);
 }
 
 .totalsales-title {
@@ -40,8 +40,7 @@
 .chart-center-label {
     position: absolute;
     transform: translate(-50%, -50%);
-    background: #475467;
-    color: white;
+    color: var(--black-100, #1C1C1C);
     padding: 6px 12px;
     border-radius: 8px;
     font-size: 12px;
@@ -49,7 +48,7 @@
     z-index: 10;
     top: 90px;
     border-radius: var(--8, 8px);
-    background: var(--black-80, rgba(28, 28, 28, 0.80));
+    background: var(--card-bg);
     backdrop-filter: blur(20px);
 }
 
@@ -94,7 +93,6 @@
   line-height: 18px;
 }
 
-/* Responsive design */
 @media (max-width: 1200px) {
   .totalsales-card {
     min-width: 180px;

@@ -7,7 +7,7 @@
   align-items: flex-start;
   gap: var(--24, 24px);
   flex-shrink: 0;
-  background-color: #ffffff;
-  border-left: 1px solid var(--black-10, rgba(28, 28, 28, 0.10));
+  background-color: var(--bg-primary);
+  border-left: 1px solid var(--border-color);
   overflow-y: auto;
 }

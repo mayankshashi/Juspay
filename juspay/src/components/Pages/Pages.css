@@ -33,11 +33,11 @@
 }
 
 .page-item:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: var(--hover-bg);
 }
 
 .page-item.active {
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: var(--hover-bg);
 }
 
 .page-item-content {
@@ -53,7 +53,7 @@
 
 .page-item-label {
   font-size: 14px;
-  color: #000000;
+  color: var(--black-100, #1C1C1C);
 }
 
 .arrow-icon {
@@ -77,13 +77,13 @@
 .subitem {
   padding: 8px 12px;
   font-size: 14px;
-  color: #000000;
+  color: var(--black-100, #1C1C1C);
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.2s ease;
 }
 
 .subitem:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-  color: #333;
+  background-color: var(--hover-bg);
+  color: var(--text-secondary);
 }

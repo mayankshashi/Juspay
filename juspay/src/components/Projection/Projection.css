@@ -1,4 +1,4 @@
-/* Projection Chart Styles */
+
 .projection-chart {
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
     gap: var(--16, 16px);
     flex: 1 0 0;
     border-radius: var(--16, 16px);
-    background: var(--Primary-Light, #F7F9FB);
+    background: var(--card-bg);
 }
 
 .projection-header {
@@ -22,7 +22,7 @@
 }
 
 .projection-title {
-  color: var(--gray-900, #101828);
+  color: var(--black-100, #1C1C1C);
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -34,7 +34,6 @@
   width: 100%;
 }
 
-/* Chart Elements */
 .projection-axis {
   fill: #475467;
   font-size: 12px;
@@ -53,7 +52,6 @@
   fill: #E5ECF6;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .projection-chart {
     padding: 16px;

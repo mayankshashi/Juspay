@@ -5,22 +5,33 @@ import Navbar from './components/Navbar/Navbar';
 import Ecommerce from './components/Ecommerce/Ecommerce';
 import OrderList from './components/OrderList/OrderList';
 import './App.css';
+import './styles/theme.css';
 
 const App = () => {
   const [activeView, setActiveView] = useState('Default');
+  const [showRightSidebar, setShowRightSidebar] = useState(true);
 
   const handleViewChange = (view) => {
     setActiveView(view);
+    if (view === 'Orders') {
+      setShowRightSidebar(false);
+    } else {
+      setShowRightSidebar(true);
+    }
+  };
+
+  const toggleRightSidebar = () => {
+    setShowRightSidebar(!showRightSidebar);
   };
 
   const renderContent = () => {
     switch (activeView) {
       case 'Default':
-        return <OrderList />;
-      case 'eCommerce':
         return <Ecommerce />;
-      default:
+      case 'Orders':
         return <OrderList />;
+      default:
+        return <Ecommerce />;
     }
   };
 
@@ -28,12 +39,12 @@ const App = () => {
     <div className="app">
       <Sidebar onViewChange={handleViewChange} activeView={activeView} />
       <div className="main-content">
-        <Navbar />
+        <Navbar onToggleRightSidebar={toggleRightSidebar} activeView={activeView} />
         <div className="content">
           {renderContent()}
         </div>
       </div>
-      <RightSidebar />
+      {showRightSidebar && <RightSidebar />}
     </div>
   );
 };

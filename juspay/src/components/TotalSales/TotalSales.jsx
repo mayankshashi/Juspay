@@ -1,15 +1,18 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './TotalSales.css';
+import { selectSales } from '../../store/slices/ecommerceSlice';
 
 const TotalSales = () => {
-  const salesData = [
-    { name: 'Direct', value: 300.56, color: '#1C1C1C' },
-    { name: 'Affiliate', value: 135.18, color: '#BAEDBD' },
-    { name: 'Sponsored', value: 154.02, color: '#95A4FC' },
-    { name: 'E-mail', value: 48.96, color: '#B1E3FF' }
+  const salesData = useSelector(selectSales);
+  const totalSalesData = [
+    { name: 'Direct', value: parseFloat(salesData.totalSales.daily.replace('$', '').replace(',', '')), color: '#1C1C1C' },
+    { name: 'Affiliate', value: parseFloat(salesData.totalSales.weekly.replace('$', '').replace(',', '')) / 7, color: '#BAEDBD' },
+    { name: 'Sponsored', value: parseFloat(salesData.totalSales.monthly.replace('$', '').replace(',', '')) / 30, color: '#95A4FC' },
+    { name: 'E-mail', value: salesData.recentSales.reduce((sum, sale) => sum + parseFloat(sale.amount.replace('$', '').replace(',', '')), 0), color: '#B1E3FF' }
   ];
 
-  const totalValue = salesData.reduce((sum, item) => sum + item.value, 0);
+  const totalValue = totalSalesData.reduce((sum, item) => sum + item.value, 0);
 
   return (
     <div className="totalsales-card">
@@ -53,7 +56,7 @@ const TotalSales = () => {
       </div>
 
       <div className="sales-legend">
-        {salesData.map((item, index) => (
+        {totalSalesData.map((item, index) => (
           <div key={index} className="legend-item">
             <div 
               className="legend-dot" 

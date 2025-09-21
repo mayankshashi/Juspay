@@ -1,16 +1,17 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { useSelector } from 'react-redux';
+import { ComposedChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import './Projection.css';
+import { selectProjection } from '../../store/slices/ecommerceSlice';
 
 const ProjectionChart = () => {
-  const data = [
-    { month: 'Jan', value: 20, fill: '#A8C5DA', topFill: '#E5ECF6' },
-    { month: 'Feb', value: 25, fill: '#A8C5DA', topFill: '#E5ECF6' },
-    { month: 'Mar', value: 18, fill: '#A8C5DA', topFill: '#E5ECF6' },
-    { month: 'Apr', value: 22, fill: '#A8C5DA', topFill: '#E5ECF6' },
-    { month: 'May', value: 15, fill: '#A8C5DA', topFill: '#E5ECF6' },
-    { month: 'Jun', value: 20, fill: '#A8C5DA', topFill: '#E5ECF6' }
-  ];
+  const projection = useSelector(selectProjection);
+  
+  const data = projection.data.map(item => ({
+    month: item.month,
+    projected: item.projected,
+    actual: item.actual
+  }));
 
   return (
     <div className="projection-chart">
@@ -19,7 +20,11 @@ const ProjectionChart = () => {
       </div>
       <div className="projection-container">
         <ResponsiveContainer width="100%" height={175}>
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+          <ComposedChart 
+            data={data}
+            margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+            barGap={-24}
+          >
             <CartesianGrid className="projection-grid" vertical={false} />
             <XAxis
               dataKey="month"
@@ -36,45 +41,17 @@ const ProjectionChart = () => {
               ticks={[0, 10, 20, 30]}
             />
             <Bar
-              dataKey="value"
-              radius={[4, 4, 0, 0]}
+              dataKey="projected"
               barSize={24}
-              shape={(props) => {
-                const { x, y, width, height, fill } = props;
-                const topHeight = height * 0.3;
-
-                return (
-                  <g>
-                    {/* Main bar */}
-                    {/* Main bar */}
-                    <path
-                      d={`
-                        M ${x},${y + height}
-                        L ${x},${y + topHeight}
-                        L ${x + width},${y + topHeight}
-                        L ${x + width},${y + height}
-                        Z
-                      `}
-                      className="projection-bar-main"
-                    />
-                    {/* Top portion with rounded top corners */}
-                    <path
-                      d={`
-                        M ${x},${y + topHeight}
-                        L ${x},${y + 4}
-                        Q ${x},${y} ${x + 4},${y}
-                        L ${x + width - 4},${y}
-                        Q ${x + width},${y} ${x + width},${y + 4}
-                        L ${x + width},${y + topHeight}
-                        Z
-                      `}
-                      className="projection-bar-top"
-                    />
-                  </g>
-                );
-              }}
+              fill="#E5ECF6"
+              radius={[4, 4, 0, 0]}
             />
-          </BarChart>
+            <Bar
+              dataKey="actual"
+              barSize={24}
+              fill="#A8C5DA"
+            />
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
     </div>

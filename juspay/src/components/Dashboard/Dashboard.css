@@ -1,6 +1,5 @@
 .dashboard-container {
   display: flex;
-  /* padding-bottom: var(--12, 12px); */
   flex-direction: column;
   align-items: flex-start;
   gap: var(--4, 4px);
@@ -39,11 +38,11 @@
 }
 
 .nav-item-container:hover {
-  background-color: #f3f4f6;
+  background-color: var(--hover-bg);
 }
 
 .nav-item-container.active {
-  background-color: #f3f4f6;
+  background-color: var(--hover-bg);
 }
 
 .active-indicator {
@@ -52,7 +51,7 @@
   top: 25;
   width: 3px;
   height: 50%;
-  background-color: #111827;
+  background-color: var(--black-100, #1C1C1C);
   border-radius: 6px;
 }
 
@@ -65,7 +64,7 @@
 .nav-label {
   flex: 1;
   font-size: 14px;
-  color: #000000;
+  color: var(--black-100, #1C1C1C);
   font-weight: 400;
 }
 

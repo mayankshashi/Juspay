@@ -1,0 +1,114 @@
+:root,
+[data-theme="light"] {
+  /* Light theme variables */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f9fb;
+  --text-primary: #1a1d1f;
+  --text-secondary: #6f767e;
+  --border-color: #e6e8ec;
+  --card-bg: #f7f9fb;
+  --hover-bg: #f4f4f4;
+  --chart-grid: #eaeaea;
+  --white-100: #ffffff;
+  /* Icon coloring */
+  --icon-filter: none;
+
+  /* Legacy palette aliases used across components */
+  --black-100: #1C1C1C;
+  --black-60: rgba(28, 28, 28, 0.60);
+  --black-40: rgba(28, 28, 28, 0.40);
+  --black-20: rgba(28, 28, 28, 0.20);
+  --black-10: rgba(28, 28, 28, 0.10);
+  --black-5: rgba(28, 28, 28, 0.03);
+  --black-0: rgba(28, 28, 28, 0.00);
+  
+  /* Theme-specific colors */
+  --primary-blue: #3b82f6;
+  --primary-purple: #8b5cf6;
+  --primary-green: #22c55e;
+  --primary-yellow: #eab308;
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+  --bg-primary: #1a1d1f;
+  --bg-secondary: #111315;
+  --text-primary: #ffffff;
+  --text-secondary: #9ba1a6;
+  --border-color: #2a2d2f;
+  --card-bg: #242729;
+  --hover-bg: #2a2d2f;
+  --chart-grid: #2a2d2f;
+  --white-100: #1C1C1C;
+  /* Make dark icons white */
+  --icon-filter: brightness(0) saturate(100%) invert(100%);
+
+  /* Legacy palette aliases remapped for dark */
+  --black-100: #FFFFFF;
+  --black-60: rgba(255, 255, 255, 0.60);
+  --black-40: rgba(255, 255, 255, 0.40);
+  --black-20: rgba(255, 255, 255, 0.20);
+  --black-10: rgba(255, 255, 255, 0.10);
+  --black-5: rgba(255, 255, 255, 0.06);
+  --black-0: rgba(255, 255, 255, 0.00);
+}
+
+/* Apply theme globally */
+html, body, #root {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme toggle icon animation */
+.rotate-icon {
+  transform: rotate(360deg);
+  transition: transform 0.5s ease;
+}
+
+/* Icon tinting based on theme */
+.nav-icon,
+.navbar-search-icon,
+.search-icon,
+.page-item-icon,
+/* .activity-icon,  PNG avatars/icons should not be filtered */
+/* .notification-icon, keep notification icons original color */
+.arrow-icon,
+.trend-icon,
+.clipboard-icon,
+.calendar-icon,
+.more-icon {
+  filter: var(--icon-filter);
+}
+
+/* Card styles */
+.card {
+  background-color: var(--card-bg);
+}
+
+/* Text styles */
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* Input styles */
+input {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Chart styles */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: var(--chart-grid);
+}
+
+.recharts-text {
+  fill: var(--text-secondary);
+}
+
+/* Hover effects */
+.hover-effect:hover {
+  background-color: var(--hover-bg);
+}

@@ -1,110 +1,179 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './OrderList.css';
+import AddIcon from '../../assets/Add.svg';
+import ArrowsDownUpIcon from '../../assets/ArrowsDownUp.svg';
+import FunnelSimpleIcon from '../../assets/FunnelSimple.svg';
+import SearchIcon from '../../assets/Search.svg';
+import ClipboardIcon from '../../assets/ClipboardText.svg';
+import DotsThreeVerticalIcon from '../../assets/DotsThreeOutlineVertical.svg';
+import CalendarBlankIcon from '../../assets/CalendarBlank.svg';
+import AddOrder from '../AddOrder/AddOrder';
+import DeleteConfirmation from '../DeleteConfirmation/DeleteConfirmation';
+import {
+  selectOrders,
+  selectSelectedOrders,
+  selectSearchTerm,
+  selectCurrentPage,
+  setOrders,
+  addOrder,
+  updateOrder,
+  deleteOrder,
+  setSelectedOrders,
+  setSearchTerm,
+  setCurrentPage,
+} from '../../store/slices/orderSlice';
+
+const INITIAL_ORDERS = [
+  {
+    id: 'CM9801',
+    user: { name: 'Natali Craig', avatar: '/src/assets/Female05.png' },
+    project: 'Landing Page',
+    address: 'Meadow Lane Oakland',
+    date: 'Just now',
+    status: 'In Progress'
+  },
+  {
+    id: 'CM9802',
+    user: { name: 'Kate Morrison', avatar: '/src/assets/Female08.png' },
+    project: 'CRM Admin pages',
+    address: 'Larry San Francisco',
+    date: 'A minute ago',
+    status: 'Complete'
+  },
+  {
+    id: 'CM9803',
+    user: { name: 'Drew Cano', avatar: '/src/assets/Male06.png' },
+    project: 'Client Project',
+    address: 'Bagwell Avenue Ocala',
+    date: '1 hour ago',
+    status: 'Pending'
+  },
+  {
+    id: 'CM9804',
+    user: { name: 'Orlando Diggs', avatar: '/src/assets/Male07.png' },
+    project: 'Admin Dashboard',
+    address: 'Washburn Baton Rouge',
+    date: 'Yesterday',
+    status: 'Approved'
+  },
+  {
+    id: 'CM9805',
+    user: { name: 'Andi Lane', avatar: '/src/assets/Female09.png' },
+    project: 'App Landing Page',
+    address: 'Nest Lane Olivette',
+    date: 'Feb 2, 2023',
+    status: 'Rejected'
+  },
+  {
+    id: 'CM9806',
+    user: { name: 'Sarah Wilson', avatar: '/src/assets/Female15.png' },
+    project: 'Mobile App',
+    address: 'Main Street Boston',
+    date: 'Feb 1, 2023',
+    status: 'In Progress'
+  },
+  {
+    id: 'CM9807',
+    user: { name: 'John Smith', avatar: '/src/assets/Male08.png' },
+    project: 'Website Redesign',
+    address: 'Oak Avenue Chicago',
+    date: 'Jan 30, 2023',
+    status: 'Complete'
+  },
+  {
+    id: 'CM9808',
+    user: { name: 'Emily Davis', avatar: '/src/assets/Female05 (1).png' },
+    project: 'E-commerce Platform',
+    address: 'Pine Street Seattle',
+    date: 'Jan 28, 2023',
+    status: 'Pending'
+  },
+  {
+    id: 'CM9809',
+    user: { name: 'Michael Brown', avatar: '/src/assets/Male11.png' },
+    project: 'Analytics Dashboard',
+    address: 'Cedar Lane Miami',
+    date: 'Jan 25, 2023',
+    status: 'Approved'
+  },
+  {
+    id: 'CM9810',
+    user: { name: 'Lisa Johnson', avatar: '/src/assets/Female08.png' },
+    project: 'Portfolio Site',
+    address: 'Elm Street Denver',
+    date: 'Jan 22, 2023',
+    status: 'In Progress'
+  }
+  // ... other initial orders
+];
 
 const OrderList = () => {
-  const [selectedOrders, setSelectedOrders] = useState(new Set());
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  const dispatch = useDispatch();
+  const orders = useSelector(selectOrders);
+  const selectedOrders = useSelector(selectSelectedOrders);
+  const searchTerm = useSelector(selectSearchTerm);
+  const currentPage = useSelector(selectCurrentPage);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const orders = [
-    {
-      id: 'CM9801',
-      user: { name: 'Natali Craig', avatar: '/src/assets/Female05.png' },
-      project: 'Landing Page',
-      address: 'Meadow Lane Oakland',
-      date: 'Just now',
-      status: 'In Progress'
-    },
-    {
-      id: 'CM9802',
-      user: { name: 'Kate Morrison', avatar: '/src/assets/Female08.png' },
-      project: 'CRM Admin pages',
-      address: 'Larry San Francisco',
-      date: 'A minute ago',
-      status: 'Complete'
-    },
-    {
-      id: 'CM9803',
-      user: { name: 'Drew Cano', avatar: '/src/assets/Male06.png' },
-      project: 'Client Project',
-      address: 'Bagwell Avenue Ocala',
-      date: '1 hour ago',
-      status: 'Pending'
-    },
-    {
-      id: 'CM9804',
-      user: { name: 'Orlando Diggs', avatar: '/src/assets/Male07.png' },
-      project: 'Admin Dashboard',
-      address: 'Washburn Baton Rouge',
-      date: 'Yesterday',
-      status: 'Approved'
-    },
-    {
-      id: 'CM9805',
-      user: { name: 'Andi Lane', avatar: '/src/assets/Female09.png' },
-      project: 'App Landing Page',
-      address: 'Nest Lane Olivette',
-      date: 'Feb 2, 2023',
-      status: 'Rejected'
-    },
-    {
-      id: 'CM9806',
-      user: { name: 'Sarah Wilson', avatar: '/src/assets/Female15.png' },
-      project: 'Mobile App',
-      address: 'Main Street Boston',
-      date: 'Feb 1, 2023',
-      status: 'In Progress'
-    },
-    {
-      id: 'CM9807',
-      user: { name: 'John Smith', avatar: '/src/assets/Male08.png' },
-      project: 'Website Redesign',
-      address: 'Oak Avenue Chicago',
-      date: 'Jan 30, 2023',
-      status: 'Complete'
-    },
-    {
-      id: 'CM9808',
-      user: { name: 'Emily Davis', avatar: '/src/assets/Female05 (1).png' },
-      project: 'E-commerce Platform',
-      address: 'Pine Street Seattle',
-      date: 'Jan 28, 2023',
-      status: 'Pending'
-    },
-    {
-      id: 'CM9809',
-      user: { name: 'Michael Brown', avatar: '/src/assets/Male11.png' },
-      project: 'Analytics Dashboard',
-      address: 'Cedar Lane Miami',
-      date: 'Jan 25, 2023',
-      status: 'Approved'
-    },
-    {
-      id: 'CM9810',
-      user: { name: 'Lisa Johnson', avatar: '/src/assets/Female08.png' },
-      project: 'Portfolio Site',
-      address: 'Elm Street Denver',
-      date: 'Jan 22, 2023',
-      status: 'In Progress'
-    }
-  ];
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleMoreClick = (e, order) => {
+    e.stopPropagation();
+    setShowDropdown(showDropdown === order.id ? null : order.id);
+    setSelectedOrder(order);
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setShowAddModal(true);
+    setShowDropdown(null);
+  };
+
+  const handleDelete = () => {
+    setShowDeleteModal(true);
+    setShowDropdown(null);
+  };
+
+  const handleDeleteConfirm = () => {
+    dispatch(deleteOrder(selectedOrder.id));
+    setShowDeleteModal(false);
+    setSelectedOrder(null);
+  };
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'In Progress': return '#3B82F6';
-      case 'Complete': return '#10B981';
-      case 'Pending': return '#06B6D4';
-      case 'Approved': return '#F59E0B';
-      case 'Rejected': return '#6B7280';
-      default: return '#6B7280';
+      case 'In Progress': return '#8A8CD9';
+      case 'Complete': return '#4AA785';
+      case 'Pending': return '#59A8D4';
+      case 'Approved': return '#FFC555';
+      case 'Rejected': return 'var(--black-40, rgba(28, 28, 28, 0.40))';
+      default: return 'var(--black-40, rgba(28, 28, 28, 0.40))';
     }
   };
 
   const handleSelectAll = () => {
     if (selectedOrders.size === orders.length) {
-      setSelectedOrders(new Set());
+      dispatch(setSelectedOrders(new Set()));
     } else {
-      setSelectedOrders(new Set(orders.map(order => order.id)));
+      dispatch(setSelectedOrders(new Set(orders.map(order => order.id))));
     }
   };
 
@@ -115,15 +184,22 @@ const OrderList = () => {
     } else {
       newSelected.add(orderId);
     }
-    setSelectedOrders(newSelected);
+    dispatch(setSelectedOrders(newSelected));
   };
 
-  const filteredOrders = orders.filter(order =>
-    order.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.project.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.address.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredOrders = orders.filter(order => {
+    const searchTermLower = searchTerm.toLowerCase().trim();
+    if (!searchTermLower) return true;
+
+    return (
+      order.id.toLowerCase().includes(searchTermLower) ||
+      order.user.name.toLowerCase().includes(searchTermLower) ||
+      order.project.toLowerCase().includes(searchTermLower) ||
+      order.address.toLowerCase().includes(searchTermLower) ||
+      order.status.toLowerCase().includes(searchTermLower) ||
+      order.date.toLowerCase().includes(searchTermLower)
+    );
+  });
 
   const totalPages = Math.ceil(filteredOrders.length / 10);
   const startIndex = (currentPage - 1) * 10;
@@ -133,36 +209,31 @@ const OrderList = () => {
     <div className="order-list-container">
       <div className="order-list-header">
         <h1 className="order-list-title">Order List</h1>
+      </div>
+
+      <div className="order-list-actions">
+        <div className="action-buttons">
+          <button className="action-btn" onClick={() => setShowAddModal(true)}>
+            <img src={AddIcon} alt="Add" className="nav-icon" />
+          </button>
+          <button className="action-btn">
+            <img src={FunnelSimpleIcon} alt="Filter" className="nav-icon" />
+          </button>
+          <button className="action-btn">
+            <img src={ArrowsDownUpIcon} alt="Sort" className="nav-icon" />
+          </button>
+        </div>
         
-        <div className="order-list-actions">
-          <div className="action-buttons">
-            <button className="action-btn add-btn">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M8 1V15M1 8H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </button>
-            <button className="action-btn filter-btn">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 4H14M4 8H12M6 12H10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </button>
-            <button className="action-btn sort-btn">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 2L12 6M4 10L8 14L12 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-          </div>
-          
-          <div className="search-container">
-            <svg className="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="2"/>
-              <path d="M13 13L10.1 10.1" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
+        <div className="search-container">
+          <div className="search-input-wrapper">
+            <img src={SearchIcon} alt="Search" className="search-icon" />
             <input
               type="text"
               placeholder="Search"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                dispatch(setSearchTerm(e.target.value));
+              }}
               className="search-input"
             />
           </div>
@@ -174,13 +245,15 @@ const OrderList = () => {
           <thead>
             <tr>
               <th className="checkbox-column">
-                <input
-                  type="checkbox"
-                  checked={selectedOrders.size === orders.length && orders.length > 0}
-                  onChange={handleSelectAll}
-                  className="checkbox"
-                />
-                <span className="column-label">Order ID</span>
+                <div className="checkbox-wrapper">
+                  <input
+                    type="checkbox"
+                    checked={selectedOrders.size === orders.length && orders.length > 0}
+                    onChange={handleSelectAll}
+                    className="checkbox"
+                  />
+                  <span className="column-label">Order ID</span>
+                </div>
               </th>
               <th>User</th>
               <th>Project</th>
@@ -191,15 +264,17 @@ const OrderList = () => {
           </thead>
           <tbody>
             {paginatedOrders.map((order, index) => (
-              <tr key={order.id} className={index === 4 ? 'highlighted-row' : ''}>
+              <tr key={order.id}>
                 <td className="checkbox-column">
-                  <input
-                    type="checkbox"
-                    checked={selectedOrders.has(order.id)}
-                    onChange={() => handleSelectOrder(order.id)}
-                    className="checkbox"
-                  />
-                  <span className="order-id">#{order.id}</span>
+                  <div className="checkbox-wrapper">
+                    <input
+                      type="checkbox"
+                      checked={selectedOrders.has(order.id)}
+                      onChange={() => handleSelectOrder(order.id)}
+                      className="checkbox hover-element"
+                    />
+                    <span className="order-id">#{order.id}</span>
+                  </div>
                 </td>
                 <td className="user-cell">
                   <div className="user-info">
@@ -213,39 +288,39 @@ const OrderList = () => {
                 <td className="address-cell">
                   <div className="address-content">
                     <span>{order.address}</span>
-                    {order.id === 'CM9805' && (
-                      <svg className="clipboard-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <rect x="2" y="2" width="8" height="8" rx="1" stroke="currentColor" strokeWidth="1"/>
-                        <path d="M4 1V3M8 1V3" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
-                      </svg>
-                    )}
+                    <img src={ClipboardIcon} alt="Copy" className="hover-icon clipboard-icon" />
                   </div>
                 </td>
                 <td className="date-cell">
                   <div className="date-content">
-                    <svg className="calendar-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <rect x="1" y="2" width="10" height="9" rx="1" stroke="currentColor" strokeWidth="1"/>
-                      <path d="M1 4H11" stroke="currentColor" strokeWidth="1"/>
-                      <circle cx="3" cy="1" r="0.5" fill="currentColor"/>
-                      <circle cx="9" cy="1" r="0.5" fill="currentColor"/>
-                    </svg>
+                    <img src={CalendarBlankIcon} alt="Calendar" className="calendar-icon" />
                     <span>{order.date}</span>
                   </div>
                 </td>
                 <td className="status-cell">
-                  <div className="status-content">
+                  <div 
+                    className="status-content"
+                    style={{ color: getStatusColor(order.status) }}
+                  >
                     <div 
                       className="status-dot" 
                       style={{ backgroundColor: getStatusColor(order.status) }}
                     ></div>
                     <span className="status-text">{order.status}</span>
-                    {order.status === 'Rejected' && (
-                      <svg className="more-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <circle cx="6" cy="2" r="1" fill="currentColor"/>
-                        <circle cx="6" cy="6" r="1" fill="currentColor"/>
-                        <circle cx="6" cy="10" r="1" fill="currentColor"/>
-                      </svg>
-                    )}
+                    <div className="more-options" ref={showDropdown === order.id ? dropdownRef : null}>
+                      <img 
+                        src={DotsThreeVerticalIcon} 
+                        alt="More" 
+                        className="hover-icon more-icon" 
+                        onClick={(e) => handleMoreClick(e, order)}
+                      />
+                      {showDropdown === order.id && (
+                        <div className="dropdown-menu">
+                          <button onClick={handleEdit}>Edit</button>
+                          <button onClick={handleDelete}>Delete</button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -259,10 +334,10 @@ const OrderList = () => {
           <button 
             className="pagination-btn"
             disabled={currentPage === 1}
-            onClick={() => setCurrentPage(currentPage - 1)}
+            onClick={() => dispatch(setCurrentPage(currentPage - 1))}
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M7.5 3L4.5 6L7.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
           
@@ -272,7 +347,7 @@ const OrderList = () => {
               <button
                 key={pageNum}
                 className={`pagination-number ${pageNum === currentPage ? 'active' : ''}`}
-                onClick={() => setCurrentPage(pageNum)}
+                onClick={() => dispatch(setCurrentPage(pageNum))}
               >
                 {pageNum}
               </button>
@@ -282,14 +357,46 @@ const OrderList = () => {
           <button 
             className="pagination-btn"
             disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={() => dispatch(setCurrentPage(currentPage + 1))}
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M4.5 3L7.5 6L4.5 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
         </div>
       </div>
+
+      {showAddModal && (
+        <AddOrder
+          onClose={() => {
+            setShowAddModal(false);
+            setIsEditing(false);
+            setSelectedOrder(null);
+          }}
+          onAdd={(orderData) => {
+            if (isEditing) {
+              dispatch(updateOrder({ ...orderData, id: selectedOrder.id }));
+            } else {
+              dispatch(addOrder(orderData));
+            }
+            setIsEditing(false);
+            setSelectedOrder(null);
+          }}
+          initialData={selectedOrder}
+          isEditing={isEditing}
+        />
+      )}
+
+      {showDeleteModal && (
+        <DeleteConfirmation
+          orderId={selectedOrder?.id}
+          onClose={() => {
+            setShowDeleteModal(false);
+            setSelectedOrder(null);
+          }}
+          onConfirm={handleDeleteConfirm}
+        />
+      )}
     </div>
   );
 };
