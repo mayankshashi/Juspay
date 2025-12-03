@@ -9,36 +9,44 @@ import BellIcon from '../../assets/Bell.svg';
 import StarIcon from '../../assets/Star.svg';
 import SidebarIcon from '../../assets/Sidebar.svg';
 
-const Navbar = ({ onToggleRightSidebar, activeView }) => {
+const Navbar = ({ onToggleLeftSidebar, onToggleRightSidebar, activeView }) => {
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
   return (
     <nav className="navbar">
-      <div className="navbar-left">
-        <div className="nav-item">
-          <img src={SidebarIcon} alt="Toggle Sidebar" className="nav-icon" />
+      <div className="navbar-main">
+        <div className="navbar-left">
+          <div className="nav-item" onClick={onToggleLeftSidebar}>
+            <img src={SidebarIcon} alt="Toggle Left Sidebar" className="nav-icon" />
+          </div>
+          <div className="nav-item">
+            <img src={StarIcon} alt="Favorites" className="nav-icon" />
+          </div>
+          <div className="nav-breadcrumb">
+            <span className="dashboards">Dashboards</span>
+            <span className="separator">/</span>
+            <span className="default">{activeView || 'Default'}</span>
+          </div>
         </div>
-        <div className="nav-item">
-          <img src={StarIcon} alt="Favorites" className="nav-icon" />
-        </div>
-        <div className="nav-breadcrumb">
-          <span className="dashboards">Dashboards</span>
-          <span className="separator">/</span>
-          <span className="default">{activeView || 'Default'}</span>
+
+        {/* Desktop / tablet search (hidden on mobile) */}
+        <div className="navbar-search-container navbar-search-desktop">
+          <img src={SearchIcon} alt="Search" className="navbar-search-icon" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="navbar-search-input"
+          />
+          <span className="navbar-shortcut">⌘ /</span>
         </div>
       </div>
 
-      <div className="navbar-right">
-      <div className="navbar-search-container">
-          <img src={SearchIcon} alt="Search" className="navbar-search-icon" />
-          <input 
-            type="text" 
-            placeholder="Search" 
-            className="navbar-search-input"
-          />
-          <span className="navbar-shortcut">
-        ⌘ /
-      </span>
+      <div className="navbar-icons">
+        <div className="nav-item nav-item-mobile-only" onClick={onToggleLeftSidebar}>
+          <img src={SidebarIcon} alt="Toggle Left Sidebar" className="nav-icon" />
+        </div>
+        <div className="nav-item nav-item-mobile-only">
+          <img src={StarIcon} alt="Favorites" className="nav-icon" />
         </div>
         <div className="nav-item" onClick={() => {
           console.log('Current theme:', theme);
@@ -60,6 +68,17 @@ const Navbar = ({ onToggleRightSidebar, activeView }) => {
         <div className="nav-item" onClick={onToggleRightSidebar}>
           <img src={SidebarIcon} alt="Toggle Right Sidebar" className="nav-icon" />
         </div>
+      </div>
+
+      {/* Mobile search bar below icons */}
+      <div className="navbar-search-container navbar-search-mobile">
+        <img src={SearchIcon} alt="Search" className="navbar-search-icon" />
+        <input
+          type="text"
+          placeholder="Search"
+          className="navbar-search-input"
+        />
+        <span className="navbar-shortcut">⌘ /</span>
       </div>
     </nav>
   );
